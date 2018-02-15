@@ -1,8 +1,10 @@
-public class Matrix<Type>
+using System;
+
+public class Matrix
 {//Класс-шаблон: Матрица.
     private uint numOfRows, //Количество строк в матрице
         numOfColumns; //Количество столбцов в матрице
-    private Type[,] values; //Значения элементов матрицы. Тип значения может быть разный
+    private double[,] values; //Значения элементов матрицы. Тип значения может быть разный
 
     public Matrix()
     {
@@ -10,24 +12,32 @@ public class Matrix<Type>
         values = null;
     }
 
-    public Matrix(uint r, uint c, Type[,] vals)
+    public Matrix(uint r, uint c, double[ , ] vals)
     {
         numOfRows = r;
         numOfColumns = c;
-        values = new Type[r, c];
+        values = vals;
+    }
+    public string toString()
+    {//Метод, который переводит матрицуу в стринг
+        string matrixTable = null;
         for (uint i = 0; i < numOfRows; i++)
+        {
             for (uint j = 0; j < numOfColumns; j++)
-                values[i, j] = vals[i, j];
+                matrixTable += Convert.ToString(values[i, j]);
+            matrixTable += "\n";
+        }
+        return matrixTable;
     }
 
-    public Type[,] GetValues()
+    public double[,] GetValues()
     {
         return values;
     }
 
-    public static Matrix<Type> operator *(Matrix<Type> m1, Matrix<Type> m2)
+    public static Matrix operator *(Matrix m1, Matrix m2)
     {//Перегрузка умножения для двух матриц
-        Matrix<Type> result = new Matrix<Type>(m2.numOfRows, m1.numOfColumns, new Type[m2.numOfRows, m1.numOfColumns]);
+        Matrix result = new Matrix(m2.numOfRows, m1.numOfColumns, new double[m2.numOfRows, m1.numOfColumns]);
         for (uint i = 0; i < result.numOfRows; i++)
             for (uint j = 0; j < result.numOfRows; j++)
                 for (uint k = 0; k < m1.numOfRows; k++)
