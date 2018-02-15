@@ -1,4 +1,4 @@
-using System;
+uusing System;
 using static Matrix;
 
 class App
@@ -24,8 +24,6 @@ class App
             matricies[i] = new Matrix(rows, columns, new double[rows, columns]);
             Console.Write(matricies[i]);
         }
-        Matrix multiResult = matricies[0] * matricies[1]; //Тестируем умножение двух матриц.
-            foreach(double value in multiResult.GetValues())
-                Console.WriteLine(value);
+        Console.Write(matricies[0] * matricies[1]); //Тестируем умножение двух матриц.
     }
 }
