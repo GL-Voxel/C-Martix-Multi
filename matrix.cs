@@ -18,13 +18,18 @@ public class Matrix
         numOfColumns = c;
         values = vals;
     }
-    public string toString()
-    {//Метод, который переводит матрицуу в стринг
+
+    override
+    public string ToString()
+    {//Метод, который переводит матрицу в стринг
         string matrixTable = null;
         for (uint i = 0; i < numOfRows; i++)
         {
             for (uint j = 0; j < numOfColumns; j++)
-                matrixTable += Convert.ToString(values[i, j]);
+            {
+                matrixTable += (values[i, j]);
+                matrixTable += " ";
+            }
             matrixTable += "\n";
         }
         return matrixTable;
