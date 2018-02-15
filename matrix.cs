@@ -1,5 +1,3 @@
-using System;
-
 public class Matrix<Type>
 {//Класс-шаблон: Матрица.
     private uint numOfRows, //Количество строк в матрице
@@ -29,7 +27,7 @@ public class Matrix<Type>
 
     public static Matrix<Type> operator *(Matrix<Type> m1, Matrix<Type> m2)
     {//Перегрузка умножения для двух матриц
-        Matrix<Type> result = new Matrix<Type>(m2.numOfRows, m1.numOfColumns, null);
+        Matrix<Type> result = new Matrix<Type>(m2.numOfRows, m1.numOfColumns, new Type[m2.numOfRows, m1.numOfColumns]);
         for (uint i = 0; i < result.numOfRows; i++)
             for (uint j = 0; j < result.numOfRows; j++)
                 for (uint k = 0; k < m1.numOfRows; k++)
