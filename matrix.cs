@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+
 public class Matrix
 {//Класс: Матрица.
     private double[][] values; //Значения элементов матрицы. Тип значения на самом деле может быть разный
@@ -25,8 +28,6 @@ public class Matrix
             for (uint j = 0; j < stringMartix.Length; j++) //Каждую подстроку переводим в даубл через цикл.
                 values[i][j] = Convert.ToDouble(splitStrings[j]);
         }
-            
-
     }
 
     override
