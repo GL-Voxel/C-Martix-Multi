@@ -2,8 +2,8 @@ using System;
 using System.IO;
 
 public class Matrix
-{//Класс-шаблон: Матрица.
-    private double[][] values; //Значения элементов матрицы. Тип значения может быть разный
+{//Класс: Матрица.
+    private double[][] values; //Значения элементов матрицы. Тип значения на самом деле может быть разный
 
     public Matrix()
     {
@@ -11,17 +11,19 @@ public class Matrix
     }
 
     public Matrix(double[][] vals)
-    {
+    {//Конструктор
         values = vals;
     }
 
     public Matrix(string name)
     {//Достает матрицу из файла
-        string[] stringMartix = File.ReadAllLines(name);
-
-        for (int i = 0; i < stringMartix.Length; i++)
-            stringMartix[i] = stringMartix.Split(' ');
-        values = new double[stringMartix.Length, firstString.Length];
+        string[] stringMartix = File.ReadAllLines(name),
+            splitStrings = new string[stringMartix.Length];
+        for (uint i = 0; i < stringMartix.Length; i++)
+            splitStrings = stringMartix[i].Split(' ');
+        values = new double[stringMartix.Length][];
+        for (uint i = 0; i < stringMartix.Length; i++)
+            values[i] = new double[splitStrings[1].Length];
     }
 
     override
@@ -42,11 +44,11 @@ public class Matrix
 
     public static Matrix operator *(Matrix m1, Matrix m2)
     {//Перегрузка умножения для двух матриц
-        Matrix result = new Matrix(m2.numOfRows, m1.numOfColumns, new double[m2.numOfRows, m1.numOfColumns]);
-        for (uint i = 0; i < result.numOfRows; i++)
-            for (uint j = 0; j < result.numOfRows; j++)
-                for (uint k = 0; k < m1.numOfRows; k++)
-                    result.values[i, j] += m1.values[i, k] * m2.values[k, i];
+        Matrix result = new Matrix(new double[m2.values.Length][m1.values[1].Length]);
+        for (uint i = 0; i < result.values[1].Length; i++)
+            for (uint j = 0; j < result.values[1].Length; j++)
+                for (uint k = 0; k < m1.values[1].Length; k++)
+                    result.values[i][j] += m1.values[i][k] * m2.values[k][i];
         return result;
     }
 }
