@@ -35,11 +35,6 @@ public class Matrix
         return matrixTable;
     }
 
-    public double[,] GetValues()
-    {
-        return values;
-    }
-
     public static Matrix operator *(Matrix m1, Matrix m2)
     {//Перегрузка умножения для двух матриц
         Matrix result = new Matrix(m2.numOfRows, m1.numOfColumns, new double[m2.numOfRows, m1.numOfColumns]);
