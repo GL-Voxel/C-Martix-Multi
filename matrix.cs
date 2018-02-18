@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 public class Matrix
 {//Класс-шаблон: Матрица.
@@ -19,11 +20,20 @@ public class Matrix
         values = vals;
     }
 
+    public Matrix(string name)
+    {//Достает матрицу из файла
+        string[] stringMartix = File.ReadAllLines(name);
+
+        for (int i = 0; i < stringMartix.Length; i++)
+            stringMartix[i] = stringMartix.Split(' ');
+        values = new double[stringMartix.Length, firstString.Length];
+    }
+
     override
     public string ToString()
     {//Метод, который переводит матрицу в стринг
         string matrixTable = null;
-        for (uint i = 0; i < numOfRows; i++)
+        for(uint i = 0; i < numOfRows; i++)
         {
             for (uint j = 0; j < numOfColumns; j++)
             {
