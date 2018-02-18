@@ -11,7 +11,6 @@ class App
         matrixFile.Write(m);
     }
 
-
     static void Main(string[] args)
     {
         Matrix[] matricies = new Matrix[2];
@@ -30,7 +29,7 @@ class App
                 for (uint k = 0; k < columns; k++)
                 {
                     Console.WriteLine("Введите значение [" + (j + 1) + "," + (k + 1) + "]");
-                    values[j][k] = Convert.ToDouble(Console.Read());
+                    values[j][k] = Convert.ToDouble(Console.ReadLine());
                 }
             matricies[i] = new Matrix(values);
             Console.Write(matricies[i]);
