@@ -1,42 +1,59 @@
-using System;
-using System.IO;
-using static Matrix;
+public class Matrix
+{//Класс: Матрица.
+    private double[][] values; //Значения элементов матрицы. Тип значения на самом деле может быть разный
 
-class App
-{
-    static private void MatrixToFile(string name, Matrix m)
-    {//Записывает матрицу в файл
-        File.Create(name);
-        StreamWriter matrixFile = new StreamWriter(name);
-        matrixFile.Write(m);
+    public Matrix()
+    {
+        values = null;
     }
 
+    public Matrix(double[][] vals)
+    {//Конструктор, который получает просто значения матрицы на прямую
+        values = vals;
+    }
 
-    static void Main(string[] args)
-    {
-        Matrix[] matricies = new Matrix[2];
-        for (uint i = 0; i < 2; i++)
-        {//В этом цикле происходит ввод и вывод матриц.
-            uint rows = 0,
-            columns = 0;
-            Console.Write("Сколько строк будет в матрице #" + (i + 1) + "? ");
-            rows = Convert.ToUInt32(Console.ReadLine());
-            Console.Write("Сколько столбцов будет в матрице #" + (i + 1) + "? ");
-            columns = Convert.ToUInt32(Console.ReadLine());
-            double[][] values = new double[rows][];
-            for(uint h = 0; h < columns; h++)
-                values[h] = new double[columns];
-            for (uint j = 0; j < rows; j++)
-                for (uint k = 0; k < columns; k++)
-                {
-                    Console.WriteLine("Введите значение [" + (j + 1) + "," + (k + 1) + "]");
-                    values[j][k] = Convert.ToDouble(Console.Read());
-                }
-            matricies[i] = new Matrix(values);
-            Console.Write(matricies[i]);
-            MatrixToFile("matrix" + i + ".txt", matricies[i]);
+    public Matrix(string name)
+    {//Достает матрицу из файла
+        string[] stringMartix = File.ReadAllLines(name); //Считываем строки из файла в массив строк.
+        values = new double[stringMartix.Length][];
+        for (uint i = 0; i < stringMartix.Length; i++)
+            values[i] = new double[stringMartix[1].Length];
+        for (uint i = 0; i < stringMartix[1].Length; i++)
+        {
+            string [] splitStrings = stringMartix[i].Split(' '); //Временный массив, которые делит одну строку на подстроки.
+            values[i] = new double[stringMartix.Length];
+            for (uint j = 0; j < stringMartix.Length; j++) //Каждую подстроку переводим в даубл через цикл.
+                values[i][j] = Convert.ToDouble(splitStrings[j]);
         }
-        Console.Write(matricies[0] * matricies[1]); //Тестируем умножение двух матриц.
-        MatrixToFile("matrix *.txt", matricies[0] * matricies[1]);
+            
+
+    }
+
+    override
+    public string ToString()
+    {//Метод, который переводит матрицу в стринг
+        string matrixTable = null;
+        for(uint i = 0; i < values.Length; i++)
+        {
+            for (uint j = 0; j < values[1].Length; j++)
+            {
+                matrixTable += (values[i][j]);
+                matrixTable += " ";
+            }
+            matrixTable += "\n";
+        }
+        return matrixTable;
+    }
+
+    public static Matrix operator *(Matrix m1, Matrix m2)
+    {//Перегрузка умножения для двух матриц
+        Matrix result = new Matrix(new double[m2.values.Length][]);
+        for (uint i = 0; i < m2.values.Length; i++)
+            result.values[i] = new double[m1.values[1].Length];
+        for (uint i = 0; i < result.values[1].Length; i++)
+            for (uint j = 0; j < result.values[1].Length; j++)
+                for (uint k = 0; k < m1.values[1].Length; k++)
+                    result.values[i][j] += m1.values[i][k] * m2.values[k][i];
+        return result;
     }
 }
